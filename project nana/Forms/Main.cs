@@ -4,23 +4,25 @@ namespace project_nana
 {
     public partial class Main : Form
     {
-        public string file = string.Empty;
+        private TelegramForm TgFrom = new TelegramForm();
+        private TextForm TxtFrom = new TextForm();
+        private string LoadedFile = string.Empty;
         public Main()
         {
             InitializeComponent();
             import_telegram_json.Click += (a, e) =>
             {
-                ChangeForm(new TelegramForm());
-                if(LoadFile("Json Files|*.json") == 1)
+                ChangeForm(TgFrom);
+                if (LoadFile("Json Files|*.json") == 0)
                 {
-
+                    TgFrom.TakeStat(LoadedFile);
                 }
             };
 
             import_txt.Click += (a, e) =>
             {
-                ChangeForm(new TextForm());
-                if(LoadFile("Text Files|*.txt")==1)
+                ChangeForm(TxtFrom);
+                if (LoadFile("Text Files|*.txt") == 0)
                 {
 
                 }
@@ -36,7 +38,7 @@ namespace project_nana
                 openFileDialog.Filter = fileType;
                 if(openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    file = File.ReadAllText(openFileDialog.FileName);
+                    LoadedFile = File.ReadAllText(openFileDialog.FileName);
                     return 0;
                 }
             }
@@ -82,7 +84,8 @@ namespace project_nana
         public Form ActiveForm;
         private void ChangeForm(Form form)
         {
-            if (ActiveForm != null) ActiveForm.Close();
+            if (ActiveForm == form) return;
+            if (ActiveForm != null) ActiveForm.Hide();
             ActiveForm = form;
             form.TopLevel = false;
             form.Dock = DockStyle.Fill;

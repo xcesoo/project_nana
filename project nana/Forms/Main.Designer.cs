@@ -63,7 +63,7 @@
             border_panel.Dock = DockStyle.Top;
             border_panel.Location = new Point(0, 0);
             border_panel.Name = "border_panel";
-            border_panel.Size = new Size(900, 40);
+            border_panel.Size = new Size(1035, 40);
             border_panel.TabIndex = 0;
             border_panel.MouseDown += border_panel_MouseDown;
             border_panel.MouseMove += border_panel_MouseMove;
@@ -93,10 +93,11 @@
             // 
             // minimize_button
             // 
+            minimize_button.Dock = DockStyle.Right;
             minimize_button.FlatAppearance.BorderSize = 0;
             minimize_button.FlatStyle = FlatStyle.Flat;
             minimize_button.Image = Properties.Resources.minimize_ring_fill;
-            minimize_button.Location = new Point(814, 0);
+            minimize_button.Location = new Point(955, 0);
             minimize_button.Name = "minimize_button";
             minimize_button.Size = new Size(40, 40);
             minimize_button.TabIndex = 5;
@@ -105,10 +106,11 @@
             // 
             // close_button
             // 
+            close_button.Dock = DockStyle.Right;
             close_button.FlatAppearance.BorderSize = 0;
             close_button.FlatStyle = FlatStyle.Flat;
             close_button.Image = Properties.Resources.close_ring_fill;
-            close_button.Location = new Point(860, 0);
+            close_button.Location = new Point(995, 0);
             close_button.Name = "close_button";
             close_button.Size = new Size(40, 40);
             close_button.TabIndex = 4;
@@ -121,7 +123,7 @@
             main_panel.Dock = DockStyle.Right;
             main_panel.Location = new Point(150, 40);
             main_panel.Name = "main_panel";
-            main_panel.Size = new Size(750, 485);
+            main_panel.Size = new Size(885, 574);
             main_panel.TabIndex = 1;
             // 
             // sub_menu_export
@@ -163,7 +165,7 @@
             side_menu_panel.Dock = DockStyle.Left;
             side_menu_panel.Location = new Point(0, 40);
             side_menu_panel.Name = "side_menu_panel";
-            side_menu_panel.Size = new Size(150, 485);
+            side_menu_panel.Size = new Size(150, 574);
             side_menu_panel.TabIndex = 2;
             // 
             // info
@@ -174,7 +176,7 @@
             info.ForeColor = SystemColors.ButtonFace;
             info.Image = Properties.Resources.info_light;
             info.ImageAlign = ContentAlignment.BottomLeft;
-            info.Location = new Point(0, 417);
+            info.Location = new Point(0, 506);
             info.Name = "info";
             info.Padding = new Padding(10, 0, 0, 3);
             info.Size = new Size(150, 40);
@@ -188,7 +190,7 @@
             version.AutoSize = true;
             version.Dock = DockStyle.Bottom;
             version.ForeColor = SystemColors.ButtonFace;
-            version.Location = new Point(0, 460);
+            version.Location = new Point(0, 549);
             version.Name = "version";
             version.Padding = new Padding(10, 0, 0, 10);
             version.Size = new Size(99, 25);
@@ -297,7 +299,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(46, 46, 46);
-            ClientSize = new Size(900, 525);
+            ClientSize = new Size(1035, 614);
             Controls.Add(side_menu_panel);
             Controls.Add(main_panel);
             Controls.Add(border_panel);
