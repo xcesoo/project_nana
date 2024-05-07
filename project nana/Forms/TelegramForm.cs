@@ -13,13 +13,16 @@ namespace project_nana
 {
     public partial class TelegramForm : Form
     {
+        ChatAnalyzer chatAnalyzer = new ChatAnalyzer();
+        DataChat chat;
         public TelegramForm()
         {
             InitializeComponent();
         }
-        private void telegram_stat_textbox_MouseWheel(object sender, MouseEventArgs e)
+        private async Task DisplayTelegramStat()
         {
-            int linesToScroll = e.Delta * 3 / 120;
+            //Task Listbox1 = Task.Run(() => takestat());
+            //await Task.WhenAll(Listbox1);
         }
     }
 }

@@ -4,31 +4,26 @@ namespace project_nana
 {
     public partial class Main : Form
     {
-        string file = string.Empty;
-        ChatAnalyzer chatAnalyzer = new ChatAnalyzer();
-        TextAnalyzer textAnalyzer = new TextAnalyzer();
-        DataChat chat;
+        public string file = string.Empty;
         public Main()
         {
             InitializeComponent();
             import_telegram_json.Click += (a, e) =>
             {
                 ChangeForm(new TelegramForm());
-                LoadFile("Json Files|*.json");
-                try
+                if(LoadFile("Json Files|*.json") == 1)
                 {
-                    chat = DataChatSet.CreateNewDataChat(file);
-                    var result = chatAnalyzer.Analyze(chat);
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
+
                 }
             };
 
             import_txt.Click += (a, e) =>
             {
                 ChangeForm(new TextForm());
+                if(LoadFile("Text Files|*.txt")==1)
+                {
+
+                }
             };
         }
 
@@ -84,7 +79,7 @@ namespace project_nana
         }
 
         // «м≥нюЇмо форму залежно що обрали Text - Json
-        private Form ActiveForm;
+        public Form ActiveForm;
         private void ChangeForm(Form form)
         {
             if (ActiveForm != null) ActiveForm.Close();

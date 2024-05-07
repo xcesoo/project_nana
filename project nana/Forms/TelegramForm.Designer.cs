@@ -86,7 +86,6 @@
             telegram_stat_textbox.Name = "telegram_stat_textbox";
             telegram_stat_textbox.Size = new Size(214, 384);
             telegram_stat_textbox.TabIndex = 0;
-            telegram_stat_textbox.MouseWheel += telegram_stat_textbox_MouseWheel;
             // 
             // panel4
             // 
