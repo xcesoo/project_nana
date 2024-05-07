@@ -28,11 +28,7 @@ namespace project_nana
 
             foreach (var messages in userMessages)
             {
-                chat_users.Add(new User()
-                {
-                    id = messages.Key,
-                    messages = messages.Value
-                });
+                chat_users.Add(new User(messages.Key, messages.Value)); // messages.Key = name & messages.Value = список повідомлень message
             }
             return chat_users;
         }
@@ -41,15 +37,15 @@ namespace project_nana
             var statistics = new Dictionary<string,UserMessagesData>();
             foreach (var user in users)
             {
-                if (!statistics.ContainsKey(user.id)) statistics[user.id] = TakeStatisticsUser(user);
+                if (!statistics.ContainsKey(user.Id)) statistics[user.Id] = TakeStatisticsUser(user);
                 else continue;
             }
             return statistics;
         }
         private UserMessagesData TakeStatisticsUser(User user)
         {
-            string name = user.messages[0].From;
-            uint messageCount = (uint)user.messages.Count;
+            string name = user.Messages[0].From ?? "unknown";
+            uint messageCount = (uint)user.Messages.Count;
             uint messageCountPhoto = 0;
             uint messageCountCircleVideo = 0;
             uint messageCountVideo = 0;
@@ -58,7 +54,7 @@ namespace project_nana
             uint messageCountGIF = 0;
             uint messageCountSticker = 0;
             uint countPhoneCalls = 0;
-            foreach (var messageType in user.messages)
+            foreach (var messageType in user.Messages)
             {
                 if (messageType.Photo!=null) messageCountPhoto++;
                 if(messageType.Action == "phone_call") countPhoneCalls++;

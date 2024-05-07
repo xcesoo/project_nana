@@ -9,7 +9,7 @@ namespace project_nana
 {
     public class DataChat
     {
-        public DataChat(string? name, string? type, ulong? id, Message[]? messages)
+        public DataChat(string? name, string? type, ulong? id, List<Message>? messages)
         {
             Name = name;
             Type = type;
@@ -20,7 +20,7 @@ namespace project_nana
         public string? Name { get; }
         public string? Type { get; }
         public ulong? Id { get; }
-        public Message[]? Messages { get; }
+        public List<Message>? Messages { get; }
 
     }
 }

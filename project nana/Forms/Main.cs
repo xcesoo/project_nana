@@ -1,13 +1,29 @@
+using System.Diagnostics;
+
 namespace project_nana
 {
     public partial class Main : Form
     {
+        string file = string.Empty;
+        ChatAnalyzer chatAnalyzer = new ChatAnalyzer();
+        TextAnalyzer textAnalyzer = new TextAnalyzer();
+        DataChat chat;
         public Main()
         {
             InitializeComponent();
             import_telegram_json.Click += (a, e) =>
             {
                 ChangeForm(new TelegramForm());
+                LoadFile("Json Files|*.json");
+                try
+                {
+                    chat = DataChatSet.CreateNewDataChat(file);
+                    var result = chatAnalyzer.Analyze(chat);
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             };
 
             import_txt.Click += (a, e) =>
@@ -20,7 +36,14 @@ namespace project_nana
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog()) 
             {
-
+                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                openFileDialog.FileName = string.Empty;
+                openFileDialog.Filter = fileType;
+                if(openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    file = File.ReadAllText(openFileDialog.FileName);
+                    return 0;
+                }
             }
             return -1;
         }

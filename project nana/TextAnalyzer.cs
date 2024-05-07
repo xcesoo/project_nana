@@ -16,7 +16,7 @@ namespace project_nana
         private List<string> ExtractWords(List<string> text)
         {
             List<string> words = new List<string>();
-            char[] seperators = { ' ', ',', '.', '?', '!', '(', ')', ';', '+', '-', ':' };
+            char[] seperators = { ' ', ',', '.', '?', '!', '(', ')', ';', '+', '-', ':', '[', ']', '{', '}', '\\', '=', '>', '<' };
             for (int i = 0; i < text.Count; i++)
                 words.AddRange(text[i].Split(seperators, StringSplitOptions.RemoveEmptyEntries));
             return words;
