@@ -35,7 +35,7 @@
             panel2 = new Panel();
             image = new PictureBox();
             text = new Label();
-            import_btn = new Button();
+            OK_btn = new Button();
             border_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)form_icon).BeginInit();
             panel1.SuspendLayout();
@@ -82,7 +82,7 @@
             // 
             panel1.BackColor = Color.FromArgb(46, 46, 46);
             panel1.Controls.Add(panel2);
-            panel1.Controls.Add(import_btn);
+            panel1.Controls.Add(OK_btn);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 40);
             panel1.Name = "panel1";
@@ -120,25 +120,25 @@
             text.TabIndex = 10;
             text.Text = "Це программа аналізатор тексту та\r\nчатів в Telegram!\r\nСтудента Карпети Кирила 212/2";
             // 
-            // import_btn
+            // OK_btn
             // 
-            import_btn.BackColor = Color.FromArgb(31, 31, 31);
-            import_btn.FlatAppearance.BorderSize = 0;
-            import_btn.FlatStyle = FlatStyle.Flat;
-            import_btn.Font = new Font("Segoe UI Semilight", 11.25F);
-            import_btn.ForeColor = SystemColors.ButtonFace;
-            import_btn.Image = Properties.Resources.OK;
-            import_btn.ImageAlign = ContentAlignment.BottomLeft;
-            import_btn.Location = new Point(228, 112);
-            import_btn.Name = "import_btn";
-            import_btn.Padding = new Padding(10, 0, 0, 3);
-            import_btn.Size = new Size(160, 40);
-            import_btn.TabIndex = 11;
-            import_btn.Text = "OK";
-            import_btn.UseVisualStyleBackColor = false;
-            import_btn.Click += import_btn_Click;
+            OK_btn.BackColor = Color.FromArgb(31, 31, 31);
+            OK_btn.FlatAppearance.BorderSize = 0;
+            OK_btn.FlatStyle = FlatStyle.Flat;
+            OK_btn.Font = new Font("Segoe UI Semilight", 11.25F);
+            OK_btn.ForeColor = SystemColors.ButtonFace;
+            OK_btn.Image = Properties.Resources.OK;
+            OK_btn.ImageAlign = ContentAlignment.BottomLeft;
+            OK_btn.Location = new Point(228, 112);
+            OK_btn.Name = "OK_btn";
+            OK_btn.Padding = new Padding(10, 0, 0, 3);
+            OK_btn.Size = new Size(160, 40);
+            OK_btn.TabIndex = 11;
+            OK_btn.Text = "OK";
+            OK_btn.UseVisualStyleBackColor = false;
+            OK_btn.Click += OK_btn_Click;
             // 
-            // MyMbox
+            // Info
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -146,7 +146,7 @@
             Controls.Add(panel1);
             Controls.Add(border_panel);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "MyMbox";
+            Name = "Info";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Info";
             border_panel.ResumeLayout(false);
@@ -167,7 +167,7 @@
         private Label form_name_label;
         private PictureBox image;
         private Label text;
-        private Button import_btn;
+        private Button OK_btn;
         private Panel panel2;
     }
 }

@@ -5,34 +5,49 @@ namespace project_nana
         public Main()
         {
             InitializeComponent();
-            import_telegram_json.Click += (a, e) => ChangeForm(new TelegramForm());
-            import_txt.Click += (a, e) => ChangeForm(new TextForm());
+            import_telegram_json.Click += (a, e) =>
+            {
+                ChangeForm(new TelegramForm());
+            };
+
+            import_txt.Click += (a, e) =>
+            {
+                ChangeForm(new TextForm());
+            };
+        }
+
+        private int LoadFile(string fileType)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog()) 
+            {
+
+            }
+            return -1;
         }
 
         //Переміщення форми (початок)
-        private bool _dragged = false;                                            // Мишка натиснута на border panel
-        private Point _startMousePosition;                                      // Стартова позиція натискання мишки
+        private bool FormDragged = false;                                            // Мишка натиснута на border panel
+        private Point StartMousePosition;                                      // Стартова позиція натискання мишки
         private void border_panel_MouseDown(object sender, MouseEventArgs e)
         {
-            _dragged = true;                                                    // Мишка натиснута
-            _startMousePosition = e.Location;                                   // Зміна стартової позиції
+            FormDragged = true;                                                    // Мишка натиснута
+            StartMousePosition = e.Location;                                   // Зміна стартової позиції
         }
 
         private void border_panel_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_dragged)                                                       // Якщо мишка натиснута
+            if (FormDragged)                                                       // Якщо мишка натиснута
             {                                                                   //
                 Point screenPoint = PointToScreen(e.Location);                  // Перетворюємо локальні координати форми у глобальні екранні координати
                 Location = new Point                                            // 
-                    (screenPoint.X - _startMousePosition.X,                       // Змінюємо Location форми
-                    screenPoint.Y - _startMousePosition.Y);                       //
+                    (screenPoint.X - StartMousePosition.X,                       // Змінюємо Location форми
+                    screenPoint.Y - StartMousePosition.Y);                       //
             }
         }
 
-        private void border_panel_MouseUp(object sender, MouseEventArgs e) => _dragged = false;  // Змінюємо стан поля _dragged
+        private void border_panel_MouseUp(object sender, MouseEventArgs e) => FormDragged = false;  // Змінюємо стан поля _dragged
 
         //Переміщення форми (кінець)
-
 
         // Відкриття гілки Import
         private void import_btn_Click(object sender, EventArgs e) => sub_menu_import.Visible = sub_menu_import.Visible ? false : true;
@@ -46,11 +61,11 @@ namespace project_nana
         }
 
         // Змінюємо форму залежно що обрали Text - Json
-        private Form _active;
+        private Form ActiveForm;
         private void ChangeForm(Form form)
         {
-            if (_active != null) _active.Close();
-            _active = form;
+            if (ActiveForm != null) ActiveForm.Close();
+            ActiveForm = form;
             form.TopLevel = false;
             form.Dock = DockStyle.Fill;
             main_panel.Controls.Add(form);
@@ -63,12 +78,12 @@ namespace project_nana
 
         private void close_button_Click(object sender, EventArgs e) => Application.Exit(); // Вихід з програми
 
-        Info mboxInfo;
+        private Info MboxInfo;
         private void info_Click(object sender, EventArgs e)
         {
-            if(mboxInfo == null || mboxInfo.IsDisposed) mboxInfo = new Info();
-            mboxInfo.BringToFront();
-            mboxInfo.Show();
+            if(MboxInfo == null || MboxInfo.IsDisposed) MboxInfo = new Info();
+            MboxInfo.BringToFront();
+            MboxInfo.Show();
         }
     }
 }

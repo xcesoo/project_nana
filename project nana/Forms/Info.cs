@@ -17,28 +17,29 @@ namespace project_nana
             InitializeComponent();
         }
         //Переміщення форми (початок)
-        private bool _dragged = false;                                            // Мишка натиснута на border panel
-        private Point _startMousePosition;                                      // Стартова позиція натискання мишки
+        private bool FormDragged = false;                                            // Мишка натиснута на border panel
+        private Point StartMousePosition;                                      // Стартова позиція натискання мишки
         private void border_panel_MouseDown(object sender, MouseEventArgs e)
         {
-            _dragged = true;                                                    // Мишка натиснута
-            _startMousePosition = e.Location;                                   // Зміна стартової позиції
+            FormDragged = true;                                                    // Мишка натиснута
+            StartMousePosition = e.Location;                                   // Зміна стартової позиції
         }
 
         private void border_panel_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_dragged)                                                       // Якщо мишка натиснута
+            if (FormDragged)                                                       // Якщо мишка натиснута
             {                                                                   //
                 Point screenPoint = PointToScreen(e.Location);                  // Перетворюємо локальні координати форми у глобальні екранні координати
                 Location = new Point                                            // 
-                    (screenPoint.X - _startMousePosition.X,                       // Змінюємо Location форми
-                    screenPoint.Y - _startMousePosition.Y);                       //
+                    (screenPoint.X - StartMousePosition.X,                       // Змінюємо Location форми
+                    screenPoint.Y - StartMousePosition.Y);                       //
             }
         }
 
-        private void border_panel_MouseUp(object sender, MouseEventArgs e) => _dragged = false;  // Змінюємо стан поля _dragged
+        private void border_panel_MouseUp(object sender, MouseEventArgs e) => FormDragged = false;  // Змінюємо стан поля _dragged
 
-        private void import_btn_Click(object sender, EventArgs e)
+
+        private void OK_btn_Click(object sender, EventArgs e)
         {
             Dispose();
         }
