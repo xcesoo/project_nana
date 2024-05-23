@@ -11,9 +11,9 @@ namespace project_nana
         public ChatAnalyzerResult Analyze(DataChat chat)
         {
             TextAnalyzer textAnalyzer = new TextAnalyzer();
-            List<string> text = chat.Messages?.Select(x => (string)x.Text).ToList() ?? new List<string>();
+            List<string> text = chat.Messages.Select(x => (string)x.Text).ToList();
             List<User> users = AnalyzeUsers(chat);
-            return new ChatAnalyzerResult(users, textAnalyzer.Analyze(text), TakeStatisticsALLUsers(users));
+            return new ChatAnalyzerResult(users, textAnalyzer.Analyze(text), TakeStatisticsALLUsers(users), FindFirstUserMessage(chat.Messages));
         }
         private List<User> AnalyzeUsers(DataChat chat) 
         {
@@ -21,9 +21,9 @@ namespace project_nana
             var userMessages = new Dictionary<string, List<Message>>();
             foreach (var message in chat.Messages)
             {
-                if (message.FromId == null) continue;
-                if (!userMessages.ContainsKey(message.FromId)) userMessages[message.FromId] = [message];
-                else userMessages[message.FromId].Add(message);
+                if (message.ActorId ==null && message.FromId == null) continue;
+                if (!userMessages.ContainsKey(message.FromId ?? message.ActorId)) userMessages[message.FromId ?? message.ActorId] = [message];
+                else userMessages[message.FromId ?? message.ActorId].Add(message);
             }
 
             foreach (var messages in userMessages)
@@ -57,7 +57,8 @@ namespace project_nana
             foreach (var messageType in user.Messages)
             {
                 if (messageType.Photo!=null) messageCountPhoto++;
-                if(messageType.Action == "phone_call") countPhoneCalls++;
+                if(messageType.Action == "phone_call") 
+                    countPhoneCalls++;
                 switch (messageType.MediaType) 
                 {
                     case "sticker":
@@ -84,6 +85,15 @@ namespace project_nana
                 (name, messageCount, messageCountPhoto, 
                 messageCountCircleVideo, messageCountVideo, messageCountAudio, 
                 messageCountVoice, messageCountGIF, messageCountSticker, countPhoneCalls);
+        }
+
+        private Message FindFirstUserMessage(List<Message> messages)
+        {
+            foreach (var message in messages) 
+            {
+                if(message.Action==null) return message;
+            }
+            return messages[0];
         }
     }
 }

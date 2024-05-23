@@ -8,15 +8,17 @@ namespace project_nana
 {
     class ChatAnalyzerResult
     {
-        public ChatAnalyzerResult(List<User> chatUsers, TextAnalyzerResult textAnalyzerResult, Dictionary<string, UserMessagesData> userMessageData)
+        public ChatAnalyzerResult(List<User> chatUsers, TextAnalyzerResult textAnalyzerResult, Dictionary<string, UserMessagesData> userMessageData, Message firstChatMessage)
         {
             ChatUsers = chatUsers;
             TextAnalyzerResult = textAnalyzerResult;
             UserMessagesData = userMessageData;
+            FirstChatMessage = firstChatMessage;
         }
         public List<User> ChatUsers { get; }
         public TextAnalyzerResult TextAnalyzerResult { get; }
         public Dictionary<string, UserMessagesData> UserMessagesData { get; }
+        public Message FirstChatMessage { get; }
     }
 
     public class UserMessagesData

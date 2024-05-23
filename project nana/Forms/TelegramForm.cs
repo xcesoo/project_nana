@@ -27,34 +27,40 @@ namespace project_nana
             chat = DataChatSet.CreateNewDataChat(json);
             ResultAnalyze = ChatAnalyzer.Analyze(chat);
             TakeAllTgStat();
-            //Stopwatch stopwatch = new Stopwatch();
-            //stopwatch.Start();
-            //TakeAllChatMessages(listBox1);
-            //stopwatch.Stop();
-            //MessageBox.Show(stopwatch.ElapsedMilliseconds.ToString());
+
         }
 
         private async Task TakeAllTgStat()
         {
-            Task takeChatMessages = TakeAllChatMessagesAsync(allChatMessages);
+            Task takeChatMessages = TakeAllChatMessagesAsync(stat);
             Task takeChatUsers = TakeUsersStatAsync(usersStat);
             Task takeGeneralStat = TakeGeneralStatAsync(generalStat);
             Task takeFrequencyWords = TakeFrequencyWordsAsync(frequencyWordsDataGridView);
             await Task.WhenAll(takeChatMessages, takeChatUsers, takeGeneralStat, takeFrequencyWords);
         }
-
-        private async Task TakeAllChatMessagesAsync(ListBox allChatMessages)
+        private async Task TakeAllChatMessagesAsync(ListBox stat)
         {
-            await Task.Run(() => 
+            await Task.Run(() =>
             {
-                foreach (Message message in chat.Messages)
+                stat.Invoke(new Action(() =>
                 {
-                    if (message.Text == "") continue;
-                    allChatMessages.Invoke(new Action(() =>
+                    stat.Items.AddRange(new string[]
                     {
-                        allChatMessages.Items.Add($"{message.Date}, {message.From}: {message.Text}"); 
-                    }));
-                }
+                    $"Перше повідомлення від користувача: ",
+                    $"{ResultAnalyze.FirstChatMessage.From}",
+                    $"Повідомлення: ",
+                    $"{ResultAnalyze.FirstChatMessage.Date}",
+                    $"{ResultAnalyze.FirstChatMessage.Text}"
+                    });
+                }));
+                //foreach (Message message in chat.Messages)
+                //{
+                //    if (message.Text == "") continue;
+                //    allChatMessages.Invoke(new Action(() =>
+                //    {
+                //        allChatMessages.Items.Add($"{message.Date}, {message.From}: {message.Text}");
+                //    }));
+                //}
             });
         }
         private async Task TakeUsersStatAsync(ListBox userStat)
@@ -70,7 +76,7 @@ namespace project_nana
                 });
             await Task.Run(() =>
             {
-                foreach(User user in ResultAnalyze.ChatUsers)
+                foreach (User user in ResultAnalyze.ChatUsers)
                 {
                     UserMessagesData data = ResultAnalyze.UserMessagesData[user.Id];
                     userStat.Invoke(new Action(() =>
@@ -121,14 +127,14 @@ namespace project_nana
         {
             await Task.Run(() =>
             {
-                    frequencyGridView.Invoke(new Action(() =>
+                frequencyGridView.Invoke(new Action(() =>
+                {
+                    foreach (KeyValuePair<string, int> pair in ResultAnalyze.TextAnalyzerResult.FrequencyWords)
                     {
-                        foreach (KeyValuePair<string, int> pair in ResultAnalyze.TextAnalyzerResult.FrequencyWords)
-                        {
-                            frequencyGridView.Rows.Add(pair.Key, pair.Value);
-                        }
-                        frequencyGridView.Sort(frequencyGridView.Columns[1], ListSortDirection.Descending);
-                    }));
+                        frequencyGridView.Rows.Add(pair.Key, pair.Value);
+                    }
+                    frequencyGridView.Sort(frequencyGridView.Columns[1], ListSortDirection.Descending);
+                }));
             });
         }
     }

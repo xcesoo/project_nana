@@ -31,6 +31,7 @@ namespace project_nana
                     frequency_words[temp]++;            // Якщо є - інкрементуємо значення
                 else frequency_words[temp] = 1;         // Якщо нема - то створюємо новий елемент (ключ - значення)
             }
+            frequency_words = frequency_words.Where(x => x.Value >= 50).ToDictionary(x => x.Key, x => x.Value); // Беремо тільки часто вживаємі слова (частота вживань >=50)
             return frequency_words;
         }
         private double TakeWordsLengthAVG(List<string> words)
@@ -47,5 +48,7 @@ namespace project_nana
             return count_special_symbols;
         }
         private int TakeCountStrings(List<string> text) => text.Count;
+
+
     }
 }

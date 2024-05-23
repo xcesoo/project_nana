@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             panel1 = new Panel();
             generalStat = new ListBox();
             label1 = new Label();
             panel2 = new Panel();
-            allChatMessages = new ListBox();
+            stat = new ListBox();
             panel3 = new Panel();
             usersStat = new ListBox();
             panel4 = new Panel();
@@ -56,7 +59,7 @@
             panel1.Controls.Add(generalStat);
             panel1.Location = new Point(20, 70);
             panel1.Name = "panel1";
-            panel1.Size = new Size(230, 150);
+            panel1.Size = new Size(185, 150);
             panel1.TabIndex = 0;
             // 
             // generalStat
@@ -64,12 +67,13 @@
             generalStat.BackColor = Color.FromArgb(52, 52, 52);
             generalStat.BorderStyle = BorderStyle.None;
             generalStat.Dock = DockStyle.Fill;
+            generalStat.Font = new Font("Segoe UI", 10F);
             generalStat.ForeColor = SystemColors.ButtonFace;
             generalStat.FormattingEnabled = true;
-            generalStat.ItemHeight = 15;
+            generalStat.ItemHeight = 17;
             generalStat.Location = new Point(0, 0);
             generalStat.Name = "generalStat";
-            generalStat.Size = new Size(230, 150);
+            generalStat.Size = new Size(185, 150);
             generalStat.TabIndex = 2;
             // 
             // label1
@@ -86,33 +90,33 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(52, 52, 52);
-            panel2.Controls.Add(allChatMessages);
-            panel2.Location = new Point(270, 70);
+            panel2.Controls.Add(stat);
+            panel2.Location = new Point(225, 70);
             panel2.Name = "panel2";
-            panel2.Size = new Size(287, 485);
+            panel2.Size = new Size(310, 485);
             panel2.TabIndex = 1;
             // 
-            // allChatMessages
+            // stat
             // 
-            allChatMessages.BackColor = Color.FromArgb(52, 52, 52);
-            allChatMessages.BorderStyle = BorderStyle.None;
-            allChatMessages.Dock = DockStyle.Top;
-            allChatMessages.ForeColor = SystemColors.ButtonFace;
-            allChatMessages.FormattingEnabled = true;
-            allChatMessages.HorizontalScrollbar = true;
-            allChatMessages.ItemHeight = 15;
-            allChatMessages.Location = new Point(0, 0);
-            allChatMessages.Name = "allChatMessages";
-            allChatMessages.Size = new Size(287, 450);
-            allChatMessages.TabIndex = 0;
+            stat.BackColor = Color.FromArgb(52, 52, 52);
+            stat.BorderStyle = BorderStyle.None;
+            stat.Dock = DockStyle.Top;
+            stat.Font = new Font("Segoe UI Light", 10F, FontStyle.Regular, GraphicsUnit.Point, 204);
+            stat.ForeColor = SystemColors.ButtonFace;
+            stat.FormattingEnabled = true;
+            stat.ItemHeight = 17;
+            stat.Location = new Point(0, 0);
+            stat.Name = "stat";
+            stat.Size = new Size(310, 425);
+            stat.TabIndex = 0;
             // 
             // panel3
             // 
             panel3.BackColor = Color.FromArgb(52, 52, 52);
             panel3.Controls.Add(usersStat);
-            panel3.Location = new Point(580, 70);
+            panel3.Location = new Point(555, 70);
             panel3.Name = "panel3";
-            panel3.Size = new Size(287, 485);
+            panel3.Size = new Size(310, 485);
             panel3.TabIndex = 2;
             // 
             // usersStat
@@ -120,12 +124,13 @@
             usersStat.BackColor = Color.FromArgb(52, 52, 52);
             usersStat.BorderStyle = BorderStyle.None;
             usersStat.Dock = DockStyle.Top;
+            usersStat.Font = new Font("Segoe UI Light", 10F, FontStyle.Regular, GraphicsUnit.Point, 204);
             usersStat.ForeColor = SystemColors.ButtonFace;
             usersStat.FormattingEnabled = true;
-            usersStat.ItemHeight = 15;
+            usersStat.ItemHeight = 17;
             usersStat.Location = new Point(0, 0);
             usersStat.Name = "usersStat";
-            usersStat.Size = new Size(287, 450);
+            usersStat.Size = new Size(310, 425);
             usersStat.TabIndex = 1;
             // 
             // panel4
@@ -134,7 +139,7 @@
             panel4.Controls.Add(frequencyWordsDataGridView);
             panel4.Location = new Point(20, 240);
             panel4.Name = "panel4";
-            panel4.Size = new Size(230, 315);
+            panel4.Size = new Size(185, 315);
             panel4.TabIndex = 1;
             // 
             // frequencyWordsDataGridView
@@ -144,16 +149,41 @@
             frequencyWordsDataGridView.AllowUserToOrderColumns = true;
             frequencyWordsDataGridView.BackgroundColor = Color.FromArgb(52, 52, 52);
             frequencyWordsDataGridView.BorderStyle = BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(52, 52, 52);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ButtonFace;
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(74, 74, 74);
+            dataGridViewCellStyle1.SelectionForeColor = Color.White;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            frequencyWordsDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             frequencyWordsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             frequencyWordsDataGridView.ColumnHeadersVisible = false;
             frequencyWordsDataGridView.Columns.AddRange(new DataGridViewColumn[] { word, frequency });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(52, 52, 52);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ButtonFace;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(74, 74, 74);
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            frequencyWordsDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
             frequencyWordsDataGridView.Dock = DockStyle.Top;
             frequencyWordsDataGridView.GridColor = Color.FromArgb(31, 31, 31);
             frequencyWordsDataGridView.Location = new Point(0, 0);
             frequencyWordsDataGridView.Name = "frequencyWordsDataGridView";
             frequencyWordsDataGridView.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.FromArgb(52, 52, 52);
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ButtonFace;
+            dataGridViewCellStyle3.SelectionBackColor = Color.FromArgb(74, 74, 74);
+            dataGridViewCellStyle3.SelectionForeColor = Color.White;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            frequencyWordsDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            frequencyWordsDataGridView.RowHeadersVisible = false;
             frequencyWordsDataGridView.ScrollBars = ScrollBars.Vertical;
-            frequencyWordsDataGridView.Size = new Size(230, 280);
+            frequencyWordsDataGridView.Size = new Size(185, 280);
             frequencyWordsDataGridView.TabIndex = 0;
             // 
             // word
@@ -184,7 +214,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semilight", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label3.ForeColor = SystemColors.ButtonFace;
-            label3.Location = new Point(270, 52);
+            label3.Location = new Point(225, 52);
             label3.Name = "label3";
             label3.Size = new Size(26, 15);
             label3.TabIndex = 3;
@@ -195,7 +225,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semilight", 9F, FontStyle.Regular, GraphicsUnit.Point, 204);
             label4.ForeColor = SystemColors.ButtonFace;
-            label4.Location = new Point(641, 52);
+            label4.Location = new Point(555, 52);
             label4.Name = "label4";
             label4.Size = new Size(162, 15);
             label4.TabIndex = 3;
@@ -253,7 +283,7 @@
         private Label label3;
         private Label label4;
         private Label label5;
-        private ListBox allChatMessages;
+        private ListBox stat;
         private ListBox usersStat;
         private ListBox generalStat;
         private DataGridViewTextBoxColumn word;

@@ -21,6 +21,5 @@ namespace project_nana
         public string? Type { get; }
         public ulong? Id { get; }
         public List<Message>? Messages { get; }
-
     }
 }

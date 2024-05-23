@@ -15,6 +15,7 @@ namespace project_nana
         [JsonProperty("photo")] public string? Photo { get; private set; }
         [JsonProperty("action")] public string? Action { get; private set; }
         [JsonProperty("text_entities")] public TextEntity[]? TextEntities { get; private set; }
+        [JsonProperty("actor_id")] public string? ActorId { get; private set; }
         public class TextEntity
         {
             [JsonProperty("text")] public string? Text { get; private set; }
