@@ -13,7 +13,14 @@ namespace project_nana
             TextAnalyzer textAnalyzer = new TextAnalyzer();
             List<string> text = chat.Messages.Select(x => (string)x.Text).ToList();
             List<User> users = AnalyzeUsers(chat);
-            return new ChatAnalyzerResult(users, textAnalyzer.Analyze(text), TakeStatisticsALLUsers(users), FindFirstUserMessage(chat.Messages));
+            return new ChatAnalyzerResult
+                (
+                users, 
+                textAnalyzer.Analyze(text), 
+                TakeStatisticsALLUsers(users), 
+                FindFirstUserMessage(chat.Messages),
+                TakeActiveByHours(chat)
+                );
         }
         private List<User> AnalyzeUsers(DataChat chat) 
         {
@@ -44,7 +51,7 @@ namespace project_nana
         }
         private UserMessagesData TakeStatisticsUser(User user)
         {
-            string name = user.Messages[0].From ?? "unknown";
+            string name = user.Messages.FirstOrDefault(x => x.From != null).From ?? "unknown";
             uint messageCount = (uint)user.Messages.Count;
             uint messageCountPhoto = 0;
             uint messageCountCircleVideo = 0;
@@ -91,9 +98,22 @@ namespace project_nana
         {
             foreach (var message in messages) 
             {
-                if(message.Action==null) return message;
+                if(message.Text != "") return message;
             }
             return messages[0];
+        }
+
+        private Dictionary<int,int> TakeActiveByHours(DataChat chat)
+        {
+            var activeHours = new Dictionary<int, int>();
+            foreach(Message message in chat.Messages)
+            {
+                int hour = message.Date.Value.Hour;
+                if(!activeHours.ContainsKey(hour)) activeHours[hour] = 1;
+                else activeHours[hour]++;
+            }
+            //double procent = Math.Round((double)activeHours[23] / chat.Messages.Count * 100, 2);
+            return activeHours;
         }
     }
 }

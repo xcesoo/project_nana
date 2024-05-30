@@ -63,6 +63,26 @@ namespace project_nana.Properties {
         /// <summary>
         ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Arrow_drop_down_big {
+            get {
+                object obj = ResourceManager.GetObject("Arrow_drop_down_big", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Arrow_drop_up_big {
+            get {
+                object obj = ResourceManager.GetObject("Arrow_drop_up_big", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap close_ring_fill {
             get {
                 object obj = ResourceManager.GetObject("close_ring_fill", resourceCulture);
@@ -146,6 +166,16 @@ namespace project_nana.Properties {
         internal static System.Drawing.Bitmap OK {
             get {
                 object obj = ResourceManager.GetObject("OK", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Search_alt_light {
+            get {
+                object obj = ResourceManager.GetObject("Search_alt_light", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

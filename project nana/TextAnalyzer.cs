@@ -11,7 +11,17 @@ namespace project_nana
         public TextAnalyzerResult Analyze(List<string> text)
         {
             List<string> words = ExtractWords(text);
-            return new TextAnalyzerResult(words.Count, TakeFrequencyWords(words), TakeWordsLengthAVG(words), TakeSpecialSymbols(text), TakeCountStrings(text));
+            return new TextAnalyzerResult
+                (
+                words.Count, 
+                TakeFrequencyWords(words), 
+                TakeWordsLengthAVG(words), 
+                TakeSpecialSymbols(text), 
+                TakeCountStrings(text), 
+                TakeWordsLengthMin(words), 
+                TakeWordsLengthMax(words),
+                text
+                );
         }
         private List<string> ExtractWords(List<string> text)
         {
@@ -31,7 +41,7 @@ namespace project_nana
                     frequency_words[temp]++;            // Якщо є - інкрементуємо значення
                 else frequency_words[temp] = 1;         // Якщо нема - то створюємо новий елемент (ключ - значення)
             }
-            frequency_words = frequency_words.Where(x => x.Value >= 50).ToDictionary(x => x.Key, x => x.Value); // Беремо тільки часто вживаємі слова (частота вживань >=50)
+            /*frequency_words = frequency_words.Where(x => x.Value >= 50).ToDictionary(x => x.Key, x => x.Value); */// Беремо тільки часто вживаємі слова (частота вживань >=50)
             return frequency_words;
         }
         private double TakeWordsLengthAVG(List<string> words)
@@ -48,7 +58,18 @@ namespace project_nana
             return count_special_symbols;
         }
         private int TakeCountStrings(List<string> text) => text.Count;
-
+        private int TakeWordsLengthMin(List<string> words)
+        {
+            string wordMinLength = words[0];
+            foreach (string word in words) if(word.Length<wordMinLength.Length) wordMinLength = word;
+            return wordMinLength.Length;
+        }
+        private int TakeWordsLengthMax(List<string> words)
+        {
+            string wordMaxLength = words[0];
+            foreach (string word in words) if (word.Length > wordMaxLength.Length) wordMaxLength = word;
+            return wordMaxLength.Length;
+        }
 
     }
 }

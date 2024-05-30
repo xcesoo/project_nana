@@ -14,20 +14,46 @@ namespace project_nana
 {
     public partial class TelegramForm : Form
     {
-        ChatAnalyzer ChatAnalyzer = new ChatAnalyzer();
-        ChatAnalyzerResult ResultAnalyze;
-        DataChat chat;
+        private ChatAnalyzer ChatAnalyzer = new ChatAnalyzer();
+        private ChatAnalyzerResult ResultAnalyze;
+        private DataChat chat;
+        private List<int> WordsSearhResult = new List<int>();
         public TelegramForm()
         {
             InitializeComponent();
+            int currentWordIndex = 0;
+            search_wrods_btn.Click += (a, e) =>
+            {
+                WordsSearhResult = SearchInDataGrid(frequencyWordsDataGridView);
+                foundedWords.Text = $"Знайдено {WordsSearhResult.Count} збігів";
+            };
+            nextWord.Click += (a, e) =>
+            {
+                if (WordsSearhResult.Count > 0)
+                {
+                    if (currentWordIndex + 1 >= WordsSearhResult.Count) currentWordIndex = -1;
+                    frequencyWordsDataGridView.ClearSelection();
+                    frequencyWordsDataGridView.Rows[WordsSearhResult[++currentWordIndex]].Selected = true;
+                    frequencyWordsDataGridView.FirstDisplayedScrollingRowIndex = WordsSearhResult[currentWordIndex];
+                }
+            };
+            previousWord.Click += (a, e) =>
+            {
+                if (WordsSearhResult.Count > 0)
+                {
+                    if (currentWordIndex - 1 < 0) currentWordIndex = WordsSearhResult.Count;
+                    frequencyWordsDataGridView.ClearSelection();
+                    frequencyWordsDataGridView.Rows[WordsSearhResult[--currentWordIndex]].Selected = true;
+                    frequencyWordsDataGridView.FirstDisplayedScrollingRowIndex = WordsSearhResult[currentWordIndex];
+                }
+            };
         }
 
-        public void TakeStat(string json)
+        public async void TakeStat(string json)
         {
             chat = DataChatSet.CreateNewDataChat(json);
             ResultAnalyze = ChatAnalyzer.Analyze(chat);
-            TakeAllTgStat();
-
+            await TakeAllTgStat();
         }
 
         private async Task TakeAllTgStat()
@@ -46,21 +72,19 @@ namespace project_nana
                 {
                     stat.Items.AddRange(new string[]
                     {
-                    $"Перше повідомлення від користувача: ",
+                    $"Перше текстове повідомлення від користувача: ",
                     $"{ResultAnalyze.FirstChatMessage.From}",
                     $"Повідомлення: ",
                     $"{ResultAnalyze.FirstChatMessage.Date}",
-                    $"{ResultAnalyze.FirstChatMessage.Text}"
+                    $"{ResultAnalyze.FirstChatMessage.Text}",
+                    $"",
+                    $"Активність по годинам (%)",
                     });
+                    for (int i = 0; i < ResultAnalyze.ActiveHours.Count; i++) 
+                    {
+                        stat.Items.Add($"{i}:00 -> {Math.Round((double)ResultAnalyze.ActiveHours[i]/(double)chat.Messages.Count*100, 2)}% -> {ResultAnalyze.ActiveHours[i]}");
+                    }
                 }));
-                //foreach (Message message in chat.Messages)
-                //{
-                //    if (message.Text == "") continue;
-                //    allChatMessages.Invoke(new Action(() =>
-                //    {
-                //        allChatMessages.Items.Add($"{message.Date}, {message.From}: {message.Text}");
-                //    }));
-                //}
             });
         }
         private async Task TakeUsersStatAsync(ListBox userStat)
@@ -116,8 +140,8 @@ namespace project_nana
                             $"Слів: {ResultAnalyze.TextAnalyzerResult.WordsCount}",
                             $"Пунктуації: {ResultAnalyze.TextAnalyzerResult.CountSpecialSymbols}" ,
                             $"Середня довжина слова: {ResultAnalyze.TextAnalyzerResult.WordsLengthAVG}" ,
-                            $"Мін. букв в слові: none" ,
-                            $"Макс. букв в слові: none"
+                            $"Мін. букв в слові: {ResultAnalyze.TextAnalyzerResult.WordsMinLength}" ,
+                            $"Макс. букв в слові: {ResultAnalyze.TextAnalyzerResult.WordsMaxLength}"
                         }
                     );
                 }));
@@ -129,13 +153,36 @@ namespace project_nana
             {
                 frequencyGridView.Invoke(new Action(() =>
                 {
-                    foreach (KeyValuePair<string, int> pair in ResultAnalyze.TextAnalyzerResult.FrequencyWords)
+                    Dictionary<string, int> frequency = ResultAnalyze.TextAnalyzerResult.FrequencyWords.Where(x => x.Value >= 50).ToDictionary(x => x.Key, y => y.Value);
+                    foreach (KeyValuePair<string, int> pair in frequency)
                     {
                         frequencyGridView.Rows.Add(pair.Key, pair.Value);
                     }
                     frequencyGridView.Sort(frequencyGridView.Columns[1], ListSortDirection.Descending);
                 }));
             });
+        }
+        private void search_word_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) search_wrods_btn.PerformClick();
+        }
+        private List<int> SearchInDataGrid(DataGridView table)
+        {
+            List<int> searchResults = new List<int>();
+            if (search_word.Text != string.Empty && table.Rows.Count > 0)
+            {
+                for (int row = 0; row < table.Rows.Count; row++)
+                {
+                    string tempWord = table[0, row].Value.ToString();
+                    if (tempWord.Contains(search_word.Text.ToLower())) searchResults.Add(row);
+                }
+                if (searchResults.Count > 0)
+                {
+                    frequencyWordsDataGridView.Rows[searchResults[0]].Selected = true;
+                    frequencyWordsDataGridView.FirstDisplayedScrollingRowIndex = searchResults[0];
+                }
+            }
+            return searchResults;
         }
     }
 }

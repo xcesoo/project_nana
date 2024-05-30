@@ -6,7 +6,8 @@ namespace project_nana
     {
         private TelegramForm TgFrom = new TelegramForm();
         private TextForm TxtFrom = new TextForm();
-        private string LoadedFile = string.Empty;
+        private string LoadedFileJson = string.Empty;
+        private List<string> LoadedFileTxt = new List<string>();
         public Main()
         {
             InitializeComponent();
@@ -15,7 +16,7 @@ namespace project_nana
                 ChangeForm(TgFrom);
                 if (LoadFile("Json Files|*.json") == 0)
                 {
-                    TgFrom.TakeStat(LoadedFile);
+                    TgFrom.TakeStat(LoadedFileJson);
                 }
             };
 
@@ -24,7 +25,7 @@ namespace project_nana
                 ChangeForm(TxtFrom);
                 if (LoadFile("Text Files|*.txt") == 0)
                 {
-
+                    TxtFrom.TakeStat(LoadedFileTxt);
                 }
             };
         }
@@ -38,7 +39,8 @@ namespace project_nana
                 openFileDialog.Filter = fileType;
                 if(openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    LoadedFile = File.ReadAllText(openFileDialog.FileName);
+                    if (openFileDialog.FileName.EndsWith(".json")) LoadedFileJson = File.ReadAllText(openFileDialog.FileName);
+                    else LoadedFileTxt.AddRange(File.ReadAllLines(openFileDialog.FileName));
                     return 0;
                 }
             }
