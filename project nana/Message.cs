@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Text.Json.Serialization;
 
 namespace project_nana
 {
@@ -20,7 +19,7 @@ namespace project_nana
         {
             [JsonProperty("text")] public string? Text { get; private set; }
         }
-        public static List<Message> FixJArrayInText(List<Message>chatMessages)
+        public static List<Message> FixJArrayInText(List<Message> chatMessages)
         {
             foreach (var message in chatMessages)
             {

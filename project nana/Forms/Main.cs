@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 namespace project_nana
 {
     public partial class Main : Form
@@ -14,37 +12,37 @@ namespace project_nana
             import_telegram_json.Click += (a, e) =>
             {
                 ChangeForm(TgFrom);
-                if (LoadFile("Json Files|*.json") == 0)
+                string filePath = LoadFile("Json Files|*.json");
+                if (filePath != string.Empty)
                 {
+                    LoadedFileJson = File.ReadAllText(filePath);
                     TgFrom.TakeStat(LoadedFileJson);
                 }
             };
-
             import_txt.Click += (a, e) =>
             {
                 ChangeForm(TxtFrom);
-                if (LoadFile("Text Files|*.txt") == 0)
+                string filePath = LoadFile("Text Files|*.txt");
+                if (filePath != string.Empty)
                 {
+                    LoadedFileTxt.AddRange(File.ReadAllLines(filePath));
                     TxtFrom.TakeStat(LoadedFileTxt);
                 }
             };
         }
-
-        private int LoadFile(string fileType)
+        private string LoadFile(string fileType)
         {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog()) 
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
                 openFileDialog.FileName = string.Empty;
                 openFileDialog.Filter = fileType;
-                if(openFileDialog.ShowDialog() == DialogResult.OK)
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    if (openFileDialog.FileName.EndsWith(".json")) LoadedFileJson = File.ReadAllText(openFileDialog.FileName);
-                    else LoadedFileTxt.AddRange(File.ReadAllLines(openFileDialog.FileName));
-                    return 0;
+                    return openFileDialog.FileName;
                 }
             }
-            return -1;
+            return "";
         }
 
         //Переміщення форми (початок)
@@ -74,9 +72,6 @@ namespace project_nana
         // Відкриття гілки Import
         private void import_btn_Click(object sender, EventArgs e) => sub_menu_import.Visible = sub_menu_import.Visible ? false : true;
 
-        // Відкриття гілки Export
-        private void export_btn_Click(object sender, EventArgs e) => sub_menu_export.Visible = sub_menu_export.Visible ? false : true;
-
         private void form_icon_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Скидуємось мені на відяху -> 5375 4114 2761 5013", "", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -104,7 +99,7 @@ namespace project_nana
         private Info MboxInfo;
         private void info_Click(object sender, EventArgs e)
         {
-            if(MboxInfo == null || MboxInfo.IsDisposed) MboxInfo = new Info();
+            if (MboxInfo == null || MboxInfo.IsDisposed) MboxInfo = new Info();
             MboxInfo.BringToFront();
             MboxInfo.Show();
         }

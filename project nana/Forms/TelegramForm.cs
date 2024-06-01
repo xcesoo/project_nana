@@ -1,26 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace project_nana
 {
     public partial class TelegramForm : Form
     {
+        public ChatAnalyzerResult ResultAnalyze;
         private ChatAnalyzer ChatAnalyzer = new ChatAnalyzer();
-        private ChatAnalyzerResult ResultAnalyze;
         private DataChat chat;
         private List<int> WordsSearhResult = new List<int>();
         public TelegramForm()
         {
             InitializeComponent();
+
             int currentWordIndex = 0;
             search_wrods_btn.Click += (a, e) =>
             {
@@ -51,12 +43,20 @@ namespace project_nana
 
         public async void TakeStat(string json)
         {
-            chat = DataChatSet.CreateNewDataChat(json);
-            ResultAnalyze = ChatAnalyzer.Analyze(chat);
-            await TakeAllTgStat();
+            try
+            {
+                chat = DataChatSet.CreateNewDataChat(json);
+                ResultAnalyze = ChatAnalyzer.Analyze(chat);
+                await TakeAllTgStat();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Помилка зчитування файлу","Помилка",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return;
+            }
         }
 
-        private async Task TakeAllTgStat()
+        public async Task TakeAllTgStat()
         {
             Task takeChatMessages = TakeAllChatMessagesAsync(stat);
             Task takeChatUsers = TakeUsersStatAsync(usersStat);
@@ -80,9 +80,9 @@ namespace project_nana
                     $"",
                     $"Активність по годинам (%)",
                     });
-                    for (int i = 0; i < ResultAnalyze.ActiveHours.Count; i++) 
+                    for (int i = 0; i < ResultAnalyze.ActiveHours.Count; i++)
                     {
-                        stat.Items.Add($"{i}:00 -> {Math.Round((double)ResultAnalyze.ActiveHours[i]/(double)chat.Messages.Count*100, 2)}% -> {ResultAnalyze.ActiveHours[i]}");
+                        stat.Items.Add($"{i}:00 -> {Math.Round((double)ResultAnalyze.ActiveHours[i] / (double)chat.Messages.Count * 100, 2)}% -> {ResultAnalyze.ActiveHours[i]}");
                     }
                 }));
             });

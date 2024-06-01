@@ -1,10 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace project_nana
 {
@@ -17,8 +11,9 @@ namespace project_nana
         public static DataChat CreateNewDataChat(string json)
         {
             DataChatSet chatSet = JsonConvert.DeserializeObject<DataChatSet>(json);
+            if (chatSet.Name == null && chatSet.Type == null && chatSet.Id == null && chatSet.Messages == null) throw new Exception();
             chatSet.Messages = Message.FixJArrayInText(chatSet.Messages);
-            return new DataChat(chatSet.Name,chatSet.Type, chatSet.Id, chatSet.Messages);
+            return new DataChat(chatSet.Name, chatSet.Type, chatSet.Id, chatSet.Messages);
         }
     }
 }

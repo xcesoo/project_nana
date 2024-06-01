@@ -35,20 +35,15 @@
             minimize_button = new Button();
             close_button = new Button();
             main_panel = new Panel();
-            sub_menu_export = new Panel();
-            export_json = new Button();
             side_menu_panel = new Panel();
             info = new Button();
             version = new Label();
-            export_btn = new Button();
             sub_menu_import = new Panel();
-            import_stat_json = new Button();
             import_telegram_json = new Button();
             import_txt = new Button();
             import_btn = new Button();
             border_panel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)form_icon).BeginInit();
-            sub_menu_export.SuspendLayout();
             side_menu_panel.SuspendLayout();
             sub_menu_import.SuspendLayout();
             SuspendLayout();
@@ -126,40 +121,11 @@
             main_panel.Size = new Size(885, 574);
             main_panel.TabIndex = 1;
             // 
-            // sub_menu_export
-            // 
-            sub_menu_export.BackColor = Color.FromArgb(52, 52, 52);
-            sub_menu_export.Controls.Add(export_json);
-            sub_menu_export.Dock = DockStyle.Top;
-            sub_menu_export.Location = new Point(0, 200);
-            sub_menu_export.Name = "sub_menu_export";
-            sub_menu_export.Size = new Size(150, 40);
-            sub_menu_export.TabIndex = 3;
-            sub_menu_export.Visible = false;
-            // 
-            // export_json
-            // 
-            export_json.Dock = DockStyle.Top;
-            export_json.FlatAppearance.BorderSize = 0;
-            export_json.FlatStyle = FlatStyle.Flat;
-            export_json.Font = new Font("Segoe UI Semilight", 10F);
-            export_json.ForeColor = SystemColors.ButtonFace;
-            export_json.ImageAlign = ContentAlignment.BottomLeft;
-            export_json.Location = new Point(0, 0);
-            export_json.Name = "export_json";
-            export_json.Padding = new Padding(0, 0, 0, 3);
-            export_json.Size = new Size(150, 40);
-            export_json.TabIndex = 2;
-            export_json.Text = "Json file (.json)";
-            export_json.UseVisualStyleBackColor = true;
-            // 
             // side_menu_panel
             // 
             side_menu_panel.BackColor = Color.FromArgb(46, 46, 46);
             side_menu_panel.Controls.Add(info);
             side_menu_panel.Controls.Add(version);
-            side_menu_panel.Controls.Add(sub_menu_export);
-            side_menu_panel.Controls.Add(export_btn);
             side_menu_panel.Controls.Add(sub_menu_import);
             side_menu_panel.Controls.Add(import_btn);
             side_menu_panel.Dock = DockStyle.Left;
@@ -197,52 +163,17 @@
             version.TabIndex = 4;
             version.Text = "version: 0.1beta";
             // 
-            // export_btn
-            // 
-            export_btn.Dock = DockStyle.Top;
-            export_btn.FlatAppearance.BorderSize = 0;
-            export_btn.FlatStyle = FlatStyle.Flat;
-            export_btn.Font = new Font("Segoe UI Semilight", 11.25F);
-            export_btn.ForeColor = SystemColors.ButtonFace;
-            export_btn.Image = Properties.Resources.export;
-            export_btn.ImageAlign = ContentAlignment.BottomLeft;
-            export_btn.Location = new Point(0, 160);
-            export_btn.Name = "export_btn";
-            export_btn.Padding = new Padding(10, 0, 0, 3);
-            export_btn.Size = new Size(150, 40);
-            export_btn.TabIndex = 1;
-            export_btn.Text = "Export";
-            export_btn.UseVisualStyleBackColor = true;
-            export_btn.Click += export_btn_Click;
-            // 
             // sub_menu_import
             // 
             sub_menu_import.BackColor = Color.FromArgb(52, 52, 52);
-            sub_menu_import.Controls.Add(import_stat_json);
             sub_menu_import.Controls.Add(import_telegram_json);
             sub_menu_import.Controls.Add(import_txt);
             sub_menu_import.Dock = DockStyle.Top;
             sub_menu_import.Location = new Point(0, 40);
             sub_menu_import.Name = "sub_menu_import";
-            sub_menu_import.Size = new Size(150, 120);
+            sub_menu_import.Size = new Size(150, 80);
             sub_menu_import.TabIndex = 0;
             sub_menu_import.Visible = false;
-            // 
-            // import_stat_json
-            // 
-            import_stat_json.Dock = DockStyle.Top;
-            import_stat_json.FlatAppearance.BorderSize = 0;
-            import_stat_json.FlatStyle = FlatStyle.Flat;
-            import_stat_json.Font = new Font("Segoe UI Semilight", 10F);
-            import_stat_json.ForeColor = SystemColors.ButtonFace;
-            import_stat_json.ImageAlign = ContentAlignment.BottomLeft;
-            import_stat_json.Location = new Point(0, 80);
-            import_stat_json.Name = "import_stat_json";
-            import_stat_json.Padding = new Padding(0, 0, 0, 3);
-            import_stat_json.Size = new Size(150, 40);
-            import_stat_json.TabIndex = 3;
-            import_stat_json.Text = "Statistics file (.json)";
-            import_stat_json.UseVisualStyleBackColor = true;
             // 
             // import_telegram_json
             // 
@@ -310,7 +241,6 @@
             border_panel.ResumeLayout(false);
             border_panel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)form_icon).EndInit();
-            sub_menu_export.ResumeLayout(false);
             side_menu_panel.ResumeLayout(false);
             side_menu_panel.PerformLayout();
             sub_menu_import.ResumeLayout(false);
@@ -330,10 +260,6 @@
         private Panel sub_menu_import;
         private Button import_telegram_json;
         private Button import_txt;
-        private Panel sub_menu_export;
-        private Button export_json;
-        private Button export_btn;
-        private Button import_stat_json;
         private Label version;
         private Button info;
     }

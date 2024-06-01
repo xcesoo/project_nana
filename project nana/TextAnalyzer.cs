@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace project_nana
+﻿namespace project_nana
 {
-    class TextAnalyzer
+    public class TextAnalyzer
     {
         public TextAnalyzerResult Analyze(List<string> text)
         {
             List<string> words = ExtractWords(text);
             return new TextAnalyzerResult
                 (
-                words.Count, 
-                TakeFrequencyWords(words), 
-                TakeWordsLengthAVG(words), 
-                TakeSpecialSymbols(text), 
-                TakeCountStrings(text), 
-                TakeWordsLengthMin(words), 
+                words.Count,
+                TakeFrequencyWords(words),
+                TakeWordsLengthAVG(words),
+                TakeSpecialSymbols(text),
+                TakeCountStrings(text),
+                TakeWordsLengthMin(words),
                 TakeWordsLengthMax(words),
                 text
                 );
@@ -31,9 +25,9 @@ namespace project_nana
                 words.AddRange(text[i].Split(seperators, StringSplitOptions.RemoveEmptyEntries));
             return words;
         }
-        private Dictionary<string,int> TakeFrequencyWords(List<string> words) 
+        private Dictionary<string, int> TakeFrequencyWords(List<string> words)
         {
-            var frequency_words = new Dictionary<string,int>();
+            var frequency_words = new Dictionary<string, int>();
             foreach (string word in words)
             {
                 string temp = word.ToLower();           // Записуємо слово у нижньому регистрі в тимчасову змінну
@@ -53,7 +47,7 @@ namespace project_nana
         private int TakeSpecialSymbols(List<string> text)
         {
             int count_special_symbols = 0;
-            for (int i = 0; i < text.Count; i++) 
+            for (int i = 0; i < text.Count; i++)
                 count_special_symbols += text[i].Count(c => char.IsPunctuation(c));
             return count_special_symbols;
         }
@@ -61,7 +55,7 @@ namespace project_nana
         private int TakeWordsLengthMin(List<string> words)
         {
             string wordMinLength = words[0];
-            foreach (string word in words) if(word.Length<wordMinLength.Length) wordMinLength = word;
+            foreach (string word in words) if (word.Length < wordMinLength.Length) wordMinLength = word;
             return wordMinLength.Length;
         }
         private int TakeWordsLengthMax(List<string> words)

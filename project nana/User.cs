@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace project_nana
+﻿namespace project_nana
 {
     public class User
     {
@@ -14,7 +8,7 @@ namespace project_nana
             Messages = messages;
         }
 
-        public string? Id { get; } 
+        public string? Id { get; }
         public List<Message>? Messages { get; }
     }
 }

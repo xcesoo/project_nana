@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace project_nana
+﻿namespace project_nana
 {
-    class ChatAnalyzerResult
+    public class ChatAnalyzerResult
     {
         public ChatAnalyzerResult
             (
-            List<User> chatUsers, 
-            TextAnalyzerResult textAnalyzerResult, 
-            Dictionary<string, 
-            UserMessagesData> userMessageData, 
-            Message firstChatMessage, 
-            Dictionary<int,int> activeHours)
+            List<User> chatUsers,
+            TextAnalyzerResult textAnalyzerResult,
+            Dictionary<string,
+            UserMessagesData> userMessageData,
+            Message firstChatMessage,
+            Dictionary<int, int> activeHours)
         {
             ChatUsers = chatUsers;
             TextAnalyzerResult = textAnalyzerResult;
@@ -33,8 +27,8 @@ namespace project_nana
     public class UserMessagesData
     {
         public UserMessagesData
-            (string name, uint messageCount, uint messageCountPhoto, 
-            uint messageCountCircleVideo, uint messageCountVideo, uint messageCountAudio, 
+            (string name, uint messageCount, uint messageCountPhoto,
+            uint messageCountCircleVideo, uint messageCountVideo, uint messageCountAudio,
             uint messageCountVoice, uint messageCountGIF, uint messageCountSticker, uint countPhoneCalls)
         {
             Name = name;
@@ -51,13 +45,13 @@ namespace project_nana
 
         public string Name { get; }
         public uint MessageCount { get; }
-        public uint MessageCountPhoto {  get; }
+        public uint MessageCountPhoto { get; }
         public uint MessageCountCircleVideo { get; }
         public uint MessageCountVideo { get; }
         public uint MessageCountAudio { get; }
         public uint MessageCountVoice { get; }
         public uint MessageCountGIF { get; }
-        public uint MessageCountSticker {  get; }
-        public uint CountPhoneCalls {  get; }
+        public uint MessageCountSticker { get; }
+        public uint CountPhoneCalls { get; }
     }
 }

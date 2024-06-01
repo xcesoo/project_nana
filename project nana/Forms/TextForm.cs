@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.DirectoryServices;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
 
 namespace project_nana
 {
     public partial class TextForm : Form
     {
         private TextAnalyzer TextAnalyzer = new TextAnalyzer();
-        private TextAnalyzerResult ResultAnalyze;
+        public TextAnalyzerResult ResultAnalyze;
         private List<int> TextSearchResult = new List<int>();
         private List<int> WordsSearhResult = new List<int>();
         public TextForm()
@@ -49,9 +40,9 @@ namespace project_nana
                 WordsSearhResult = SearchInDataGrid(frequencyWordsDataGridView);
                 foundedWords.Text = $"Знайдено {WordsSearhResult.Count} збігів";
             };
-            nextWord.Click += (a, e) => 
+            nextWord.Click += (a, e) =>
             {
-                if(WordsSearhResult.Count>0)
+                if (WordsSearhResult.Count > 0)
                 {
                     if (currentWordIndex + 1 >= WordsSearhResult.Count) currentWordIndex = -1;
                     frequencyWordsDataGridView.ClearSelection();
@@ -73,10 +64,14 @@ namespace project_nana
         public async void TakeStat(List<string> text)
         {
             ResultAnalyze = TextAnalyzer.Analyze(text);
+            await TakeAllTextStat();
+        }
+        public async Task TakeAllTextStat()
+        {
             Task takeFrequencyWords = TakeFrequencyWordsAsync(frequencyWordsDataGridView);
             Task takeGeneralStat = TakeGeneralStatAsync(generalStat);
             Task outPutText = OutPutTextAsync(text_listbox);
-            await Task.WhenAll(takeFrequencyWords, takeGeneralStat);
+            await Task.WhenAll(takeFrequencyWords, takeGeneralStat, outPutText);
         }
         private async Task TakeFrequencyWordsAsync(DataGridView frequencyGridView)
         {
