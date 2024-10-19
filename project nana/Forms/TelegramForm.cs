@@ -82,10 +82,27 @@ namespace project_nana
                     });
                     for (int i = 0; i < ResultAnalyze.ActiveHours.Count; i++)
                     {
-                        stat.Items.Add($"{i}:00 -> {Math.Round((double)ResultAnalyze.ActiveHours[i] / (double)chat.Messages.Count * 100, 2)}% -> {ResultAnalyze.ActiveHours[i]}");
+                        if (ResultAnalyze.ActiveHours.ContainsKey(i))
+                        {
+                            stat.Items.Add($"{i}:00 -> {Math.Round((double)ResultAnalyze.ActiveHours[i] / (double)chat.Messages.Count * 100, 2)}% -> {ResultAnalyze.ActiveHours[i]}");
+                        }
+                        else stat.Items.Add($"{i}:00 -> 0% -> 0");
                     }
                 }));
             });
+        }
+        private void test() 
+        {
+                stat.Items.AddRange(new string[]
+                {
+                    $"Перше текстове повідомлення від користувача: ",
+                    $"{ResultAnalyze.FirstChatMessage.From}",
+                    $"Повідомлення: ",
+                    $"{ResultAnalyze.FirstChatMessage.Date}",
+                    $"{ResultAnalyze.FirstChatMessage.Text}",
+                    $"",
+                    $"Активність по годинам (%)",
+                });
         }
         private async Task TakeUsersStatAsync(ListBox userStat)
         {
